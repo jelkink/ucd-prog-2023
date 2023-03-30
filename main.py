@@ -1,3 +1,10 @@
-import labs.lab5
+from simulation import Simulation
 
-labs.lab5.menu()
+
+def main():
+  simulation = Simulation()
+  simulation.run()
+
+
+if __name__ == "__main__":
+  main()
