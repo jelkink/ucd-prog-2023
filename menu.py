@@ -28,12 +28,12 @@ class Menu:
   def map_size(self):
     N = input("How large should the map be (length of a square map): ")
     if not N.isnumeric():
-      print("ERROR: The map size should be a number")
+      self.simulation.error("The map size should be a number")
       return 0
 
     N = int(N)
     if N < 1 or N > 100:
-      print("ERROR: Map size needs to be between 1 and 100")
+      self.simulation.error("Map size needs to be between 1 and 100")
       return 0
 
     return N
@@ -42,18 +42,18 @@ class Menu:
     map_size = self.simulation.map.get_length()**2
 
     if map_size == 0:
-      print("ERROR: Cannot set number of agents before setting the map size")
+      self.simulation.error("Cannot set number of agents before setting the map size")
       return 0
 
     ans = input("How many agents should there be: ")
 
     if not ans.isnumeric():
-      print("ERROR: The number of agents should be a number")
+      self.simulation.error("The number of agents should be a number")
       return 0
 
     ans = int(ans)
     if ans < 1 or ans > map_size:
-      print("ERROR: The number of agents should be between 1 and %d" %
+      self.simulation.error("The number of agents should be between 1 and %d" %
             map_size)
       return 0
 
@@ -61,3 +61,5 @@ class Menu:
     while i < ans:
       self.simulation.set_random_agent()
       i += 1
+
+    self.simulation.get_log().write("Added {} agents".format(ans))

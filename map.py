@@ -6,8 +6,9 @@ from cell import Cell
 
 class Map:
 
-  def __init__(self):
+  def __init__(self, simulation):
     self.cells = []
+    self.simulation = simulation
 
   def generate(self, N):
     self.cells = []
@@ -15,6 +16,7 @@ class Map:
     while i < (N * N):
       self.cells.append(Cell())
       i += 1
+    self.simulation.get_log().write("Generated map of size {} by {}".format(N, N))
 
   def get_cell(self, x, y):
     return self.cells[self.get_index(x, y)]
@@ -28,7 +30,7 @@ class Map:
   def get_index(self, x, y):
     N = self.get_length()
     if x > N or x < 1 or y > N or y < 1:
-      print("ERROR: (x,y) coordinates outside the map boundaries!")
+      self.simulation.error("(x,y) coordinates outside the map boundaries!")
     return (x - 1) * N + (y - 1)
 
   def random_xy_zero(self):
@@ -44,7 +46,7 @@ class Map:
       x += 1
 
     if not found:
-      print("ERROR: No empty cells available!")
+      self.simulation.error("No empty cells available!")
       return None
 
     x = random.randint(1, N)
@@ -60,6 +62,7 @@ class Map:
     # the list length and randomly pick one.
 
   def print(self):
+    self.simulation.get_log().write("Printing map")
     N = self.get_length()
     x = 1
     while x <= N:

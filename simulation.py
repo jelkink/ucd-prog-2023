@@ -1,13 +1,15 @@
 from map import Map
 from agent import Agent
 from menu import Menu
+from log import Log
 
 
 class Simulation:
 
   def __init__(self):
     self.agents = []
-    self.map = Map()
+    self.map = Map(self)
+    self.log = Log("simulation.log")
 
   def run(self):
     Menu(self).main()
@@ -17,3 +19,10 @@ class Simulation:
     a = Agent(x, y)
     self.map.set_agent(x, y, a)
     self.agents.append(a)
+
+  def get_log(self):
+    return self.log
+
+  def error(self, text):
+    self.log.write("ERROR: " + text)
+    print("ERROR: " + text)
