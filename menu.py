@@ -62,4 +62,4 @@ class Menu:
       self.simulation.set_random_agent()
       i += 1
 
-    self.simulation.get_log().write("Added {} agents".format(ans))
+    self.simulation.log("Added {} agents".format(ans))

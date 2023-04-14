@@ -23,6 +23,9 @@ class Simulation:
   def get_log(self):
     return self.log
 
+  def log(self, text):
+    self.log.write(text)
+  
   def error(self, text):
     self.log.write("ERROR: " + text)
     print("ERROR: " + text)

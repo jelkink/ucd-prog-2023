@@ -16,7 +16,7 @@ class Map:
     while i < (N * N):
       self.cells.append(Cell())
       i += 1
-    self.simulation.get_log().write("Generated map of size {} by {}".format(N, N))
+    self.simulation.log("Generated map of size {} by {}".format(N, N))
 
   def get_cell(self, x, y):
     return self.cells[self.get_index(x, y)]
@@ -62,7 +62,7 @@ class Map:
     # the list length and randomly pick one.
 
   def print(self):
-    self.simulation.get_log().write("Printing map")
+    self.simulation.log("Printing map")
     N = self.get_length()
     x = 1
     while x <= N:
