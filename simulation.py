@@ -9,7 +9,7 @@ class Simulation:
   def __init__(self):
     self.agents = []
     self.map = Map(self)
-    self.log = Log("simulation.log")
+    self.log_ = Log("simulation.log")
 
   def run(self):
     Menu(self).main()
@@ -21,11 +21,11 @@ class Simulation:
     self.agents.append(a)
 
   def get_log(self):
-    return self.log
+    return self.log_
 
   def log(self, text):
-    self.log.write(text)
+    self.log_.write(text)
   
   def error(self, text):
-    self.log.write("ERROR: " + text)
+    self.log_.write("ERROR: " + text)
     print("ERROR: " + text)
