@@ -3,6 +3,8 @@ from agent import Agent
 from menu import Menu
 from log import Log
 
+import random
+
 
 class Simulation:
 
@@ -23,7 +25,8 @@ class Simulation:
 
   def set_random_agent(self):
     [x, y] = self.map.random_xy_zero()
-    a = Agent(x, y)
+    strategy = random.choice(["altruist", "ethnocentric", "cosmopolitan", "egoist"])
+    a = Agent(x, y, strategy)
     self.map.set_agent(x, y, a)
     self.agents.append(a)
 
