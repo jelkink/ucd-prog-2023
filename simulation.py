@@ -18,7 +18,7 @@ class Simulation:
     Menu(self).main()
 
   def loop(self, iterations):
-    self.log("Starting run of {iterations} iterations")
+    self.log(f"Starting run of {iterations} iterations")
     for i in range(iterations):
       self.set_random_agent()
       self.time += 1

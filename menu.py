@@ -11,6 +11,7 @@ class Menu:
       print("")
       print("Set (s)ize of the map")
       print("Add number of (a)gents")
+      print("(R)un a set number of iterations")
       print("(P)rint map")
       print("(Q)uit")
       print("")
@@ -20,6 +21,8 @@ class Menu:
         continue_menu = False
       elif ans == "s" or ans == "S":
         self.simulation.map.generate(self.map_size())
+      elif ans == "r" or ans == "R":
+        self.simulation.loop(self.iterations())
       elif ans == "a" or ans == "A":
         self.number_agents()
       elif ans == "p" or ans == "P":
@@ -38,6 +41,25 @@ class Menu:
 
     return N
 
+  def iterations(self):
+    map_size = self.simulation.map.get_length()**2
+
+    if map_size == 0:
+      self.simulation.error("Cannot run simulation before setting the map size")
+      return 0
+      
+    N = input("Enter the number of iterations to run: ")
+    if not N.isnumeric():
+      self.simulation.error("The number of iterations entered is not a number")
+      return 0
+
+    N = int(N)
+    if N < 1:
+      self.simulation.error("Number of iterations needs to be a positive number")
+      return 0
+
+    return N
+  
   def number_agents(self):
     map_size = self.simulation.map.get_length()**2
 
