@@ -16,6 +16,9 @@ class Agent:
   def get_strategy(self):
     return self.strategy
 
+  def get_group(self):
+    return self.group
+  
   def get_code(self):
     if self.strategy == "altruist":
       return "A" + format(self.group)

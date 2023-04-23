@@ -50,6 +50,17 @@ class Simulation:
     cell.set_agent(a)
     self.agents.append(a)
 
+  def print_statistics(self):
+    count_strategy = {'altruist': 0, 'ethnocentric': 0, 'cosmopolitan': 0, 'egoist': 0}
+    count_group = [0] * self.config.number_of_groups
+    
+    for a in self.agents:
+      count_strategy[a.get_strategy()] += 1
+      count_group[a.get_group()-1] += 1
+
+    print(f"Altruists: {count_strategy['altruist']}, Ethnocentrists: {count_strategy['ethnocentric']}, Cosmopolitans: {count_strategy['cosmopolitan']}, and Egoists: {count_strategy['egoist']}")
+    print("Group sizes: " + str(count_group))
+  
   def log(self, text):
     self.log_.write("[%05d] " % self.time + text)
   

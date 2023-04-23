@@ -13,6 +13,7 @@ class Menu:
       print("Add number of (a)gents")
       print("(R)un a set number of iterations")
       print("(P)rint map")
+      print("Print s(t)atistics")
       print("(Q)uit")
       print("")
       ans = input("Menu choice: ")
@@ -27,6 +28,8 @@ class Menu:
         self.number_agents()
       elif ans == "p" or ans == "P":
         self.simulation.map.print()
+      elif ans == "t" or ans == "T":
+        self.simulation.print_statistics()
 
   def map_size(self):
     N = input("How large should the map be (length of a square map): ")

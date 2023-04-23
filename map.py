@@ -16,7 +16,8 @@ class Map:
     while i < (N * N):
       self.cells.append(Cell(self.simulation, i // N, i % N))
       i += 1
-    self.simulation.log("Generated map of size {} by {}".format(N, N))
+    self.simulation.agents = []
+    self.simulation.log("Generated new map of size {} by {}".format(N, N))
 
   def get_cell(self, x, y):
     return self.cells[self.get_index(x, y)]
