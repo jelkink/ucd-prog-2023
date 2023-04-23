@@ -29,17 +29,25 @@ class Map:
 
   def get_index(self, x, y):
     N = self.get_length()
-    if x > N or x < 1 or y > N or y < 1:
-      self.simulation.error("(x,y) coordinates outside the map boundaries!")
-    return (x - 1) * N + (y - 1)
+    if x >= N or x < 0 or y >= N or y < 0:
+      self.simulation.error(f"(x,y) coordinates ({x},{y}) outside the map boundaries (length {N})!")
+    return x * N + y
+
+  def get_neighbour_coordinates(self, x, y):
+    s = self.get_length()
+
+    return [((x-1)%s, y),
+            (x, (y-1)%s),
+            (x, (y+1)%s),
+            ((x+1)%s, y)]
 
   def random_xy_zero(self):
     N = self.get_length()
     found = False
-    x = 1
-    while x <= N and not found:
-      y = 1
-      while y <= N and not found:
+    x = 0
+    while x < N and not found:
+      y = 0
+      while y < N and not found:
         if self.get_cell(x, y).is_empty():
           found = True
         y += 1
@@ -49,11 +57,11 @@ class Map:
       self.simulation.error("No empty cells available!")
       return None
 
-    x = random.randint(1, N)
-    y = random.randint(1, N)
+    x = random.randint(0, N-1)
+    y = random.randint(0, N-1)
     while not self.get_cell(x, y).is_empty():
-      x = random.randint(1, N)
-      y = random.randint(1, N)
+      x = random.randint(0, N-1)
+      y = random.randint(0, N-1)
     return [x, y]
 
     # The above is probably not the most efficient;
@@ -64,10 +72,10 @@ class Map:
   def print(self):
     self.simulation.log("Printing map")
     N = self.get_length()
-    x = 1
-    while x <= N:
-      y = 1
-      while y <= N:
+    x = 0
+    while x < N:
+      y = 0
+      while y < N:
         if self.get_cell(x, y).is_empty():
           print("-", end="")
         else:
