@@ -53,7 +53,18 @@ class Agent:
       cells = self.get_neighbour_cells(True)
       if len(cells) > 0:
         cell = random.sample(cells, 1)[0]
-        cell.set_agent(Agent(self.simulation, cell, self.strategy, self.simulation.get_config().base_ptr, self.group))
+
+        if random.random() < self.simulation.get_config().mutation_rate:
+          strategy = random.choice(["altruist", "ethnocentric", "cosmopolitan", "egoist"])
+        else:
+          strategy = self.strategy
+
+        if random.random() < self.simulation.get_config().mutation_rate:
+          group = random.randint(1, self.simulation.get_config().number_of_groups)
+        else:
+          group = self.group
+        
+        cell.set_agent(Agent(self.simulation, cell, strategy, self.simulation.get_config().base_ptr, group))
         self.simulation.agents.append(cell.get_agent())
   
   def get_neighbour_cells(self, empty = False):
