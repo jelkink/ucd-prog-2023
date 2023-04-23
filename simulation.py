@@ -30,12 +30,9 @@ class Simulation:
     self.map.set_agent(x, y, a)
     self.agents.append(a)
 
-  def get_log(self):
-    return self.log_
-
   def log(self, text):
-    self.log_.write(text)
+    self.log_.write("[%05d] " % self.time + text)
   
   def error(self, text):
-    self.log_.write("ERROR: " + text)
+    self.log_.write("[%05d] " % self.time + "ERROR: " + text)
     print("ERROR: " + text)
