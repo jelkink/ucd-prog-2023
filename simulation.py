@@ -9,10 +9,17 @@ class Simulation:
   def __init__(self):
     self.agents = []
     self.map = Map(self)
+    self.time = 0
     self.log_ = Log("simulation.log")
 
   def run(self):
     Menu(self).main()
+
+  def loop(self, iterations):
+    self.log("Starting run of {iterations} iterations")
+    for i in range(iterations):
+      self.set_random_agent()
+      self.time += 1
 
   def set_random_agent(self):
     [x, y] = self.map.random_xy_zero()
