@@ -14,7 +14,7 @@ class Map:
     self.cells = []
     i = 0
     while i < (N * N):
-      self.cells.append(Cell(self.simulation))
+      self.cells.append(Cell(self.simulation, i // N, i % N))
       i += 1
     self.simulation.log("Generated map of size {} by {}".format(N, N))
 
@@ -77,9 +77,9 @@ class Map:
       y = 0
       while y < N:
         if self.get_cell(x, y).is_empty():
-          print("-", end="")
+          print("--", end="")
         else:
-          print(self.get_cell(x, y).get_agent().get_strategy_code(), end="")
+          print(self.get_cell(x, y).get_agent().get_code(), end="")
         y += 1
       print("")
       x += 1

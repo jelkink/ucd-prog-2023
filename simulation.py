@@ -31,15 +31,20 @@ class Simulation:
 
       for a in self.agents:
         a.interaction()
-      
+
+      shuffled_agents = random.sample(self.agents, len(self.agents))
+      for a in shuffled_agents:
+        a.reproduce()
+
       self.time += 1
 
   def set_random_agent(self):
     [x, y] = self.map.random_xy_zero()
+    cell = self.map.get_cell(x, y)
     strategy = random.choice(["altruist", "ethnocentric", "cosmopolitan", "egoist"])
     group = random.randint(1, self.config.number_of_groups)
-    a = Agent(self, x, y, strategy, self.config.base_ptr, group)
-    self.map.set_agent(x, y, a)
+    a = Agent(self, cell, strategy, self.config.base_ptr, group)
+    cell.set_agent(a)
     self.agents.append(a)
 
   def log(self, text):

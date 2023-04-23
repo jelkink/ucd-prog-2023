@@ -1,8 +1,10 @@
 class Cell:
 
-  def __init__(self, simulation):
+  def __init__(self, simulation, x, y):
     self.agent = None
     self.simulation = simulation
+    self.x = x
+    self.y = y
 
   def is_empty(self):
     return self.agent == None

@@ -1,9 +1,10 @@
+import random
+
 class Agent:
 
-  def __init__(self, simulation, x, y, strategy, ptr, group):
+  def __init__(self, simulation, cell, strategy, ptr, group):
     self.simulation = simulation
-    self.x = x
-    self.y = y
+    self.cell = cell
     self.strategy = strategy
     self.ptr = ptr
     self.base_ptr = ptr
@@ -15,15 +16,15 @@ class Agent:
   def get_strategy(self):
     return self.strategy
 
-  def get_strategy_code(self):
+  def get_code(self):
     if self.strategy == "altruist":
-      return "A"
+      return "A" + format(self.group)
     elif self.strategy == "ethnocentric":
-      return "E"
+      return "E" + format(self.group)
     elif self.strategy == "cosmopolitan":
-      return "C"
+      return "C" + format(self.group)
     else:
-      return "S"
+      return "S" + format(self.group)
 
   def is_cooperate(self, other):
     if self.strategy == "altruist":
@@ -42,18 +43,26 @@ class Agent:
       self.ptr -= self.simulation.get_config().benefit
 
   def interaction(self):
-    others = self.get_neighbours()
+    cells = self.get_neighbour_cells()
 
-    for a in others:
-      self.prisoner_dilemma(a)
+    for cell in cells:
+      self.prisoner_dilemma(cell.get_agent())
 
-  def get_neighbours(self):
-    coords_neighbours = self.simulation.get_map().get_neighbour_coordinates(self.x, self.y)
+  def reproduce(self):
+    if random.random() < self.ptr:
+      cells = self.get_neighbour_cells(True)
+      if len(cells) > 0:
+        cell = random.sample(cells, 1)[0]
+        cell.set_agent(Agent(self.simulation, cell, self.strategy, self.simulation.get_config().base_ptr, self.group))
+        self.simulation.agents.append(cell.get_agent())
+  
+  def get_neighbour_cells(self, empty = False):
+    coords_neighbours = self.simulation.get_map().get_neighbour_coordinates(self.cell.x, self.cell.y)
 
     neighbours = []
     for coords in coords_neighbours:
       cell = self.simulation.get_map().get_cell(coords[0], coords[1])
-      if not cell.is_empty():
-        neighbours.append(cell.get_agent())
+      if cell.is_empty() == empty:
+        neighbours.append(cell)
 
     return neighbours
