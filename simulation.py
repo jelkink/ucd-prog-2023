@@ -51,3 +51,6 @@ class Simulation:
 
   def get_map(self):
     return self.map
+
+  def get_config(self):
+    return self.config

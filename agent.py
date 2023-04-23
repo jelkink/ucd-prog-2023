@@ -37,9 +37,9 @@ class Agent:
 
   def prisoner_dilemma(self, other):
     if self.is_cooperate(other):
-      self.ptr -= .01
+      self.ptr -= self.simulation.get_config().cost
     if not other.is_cooperate(self):
-      self.ptr -= .03
+      self.ptr -= self.simulation.get_config().benefit
 
   def interaction(self):
     others = self.get_neighbours()
