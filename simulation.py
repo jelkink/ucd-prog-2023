@@ -36,6 +36,9 @@ class Simulation:
       for a in shuffled_agents:
         a.reproduce()
 
+      for a in self.agents:
+        a.die()
+
       self.time += 1
 
   def set_random_agent(self):

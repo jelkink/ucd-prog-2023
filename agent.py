@@ -66,6 +66,11 @@ class Agent:
         
         cell.set_agent(Agent(self.simulation, cell, strategy, self.simulation.get_config().base_ptr, group))
         self.simulation.agents.append(cell.get_agent())
+
+  def die(self):
+    if random.random() < self.simulation.get_config().death_rate:
+      self.cell.set_agent(None)
+      self.simulation.agents.remove(self)
   
   def get_neighbour_cells(self, empty = False):
     coords_neighbours = self.simulation.get_map().get_neighbour_coordinates(self.cell.x, self.cell.y)
