@@ -66,9 +66,12 @@ class Agent:
           group = random.randint(1, self.simulation.get_config().number_of_groups)
         else:
           group = self.group
-        
-        cell.set_agent(Agent(self.simulation, cell, strategy, self.simulation.get_config().base_ptr, group))
-        self.simulation.agents.append(cell.get_agent())
+
+        ptr = self.simulation.get_config().base_ptr
+
+        a = Agent(self.simulation, cell, strategy, ptr, group)
+        cell.set_agent(a)
+        self.simulation.agents.append(a)
 
   def die(self):
     if random.random() < self.simulation.get_config().death_rate:
