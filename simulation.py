@@ -3,6 +3,7 @@ from agent import Agent
 from menu import Menu
 from log import Log
 from configuration import Configuration
+from stats import Stats
 
 import random
 
@@ -15,6 +16,7 @@ class Simulation:
     self.time = 0
     self.log_ = Log("simulation.log")
     self.config = Configuration()
+    self.stats = Stats(self)
 
   def run(self):
     Menu(self).main()
@@ -39,6 +41,8 @@ class Simulation:
       for a in self.agents:
         a.die()
 
+      self.stats.update()
+
       self.time += 1
 
   def set_random_agent(self):
@@ -50,16 +54,19 @@ class Simulation:
     cell.set_agent(a)
     self.agents.append(a)
 
-  def print_statistics(self):
+  def calculate_statistics(self):
     count_strategy = {'altruist': 0, 'ethnocentric': 0, 'cosmopolitan': 0, 'egoist': 0}
-    count_group = [0] * self.config.number_of_groups
     
     for a in self.agents:
       count_strategy[a.get_strategy()] += 1
-      count_group[a.get_group()-1] += 1
+
+    return count_strategy
+
+  def print_statistics(self):
+
+    count_strategy = self.calculate_statistics()
 
     print(f"Altruists: {count_strategy['altruist']}, Ethnocentrists: {count_strategy['ethnocentric']}, Cosmopolitans: {count_strategy['cosmopolitan']}, and Egoists: {count_strategy['egoist']}")
-    print("Group sizes: " + str(count_group))
   
   def log(self, text):
     self.log_.write("[%05d] " % self.time + text)
