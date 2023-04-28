@@ -15,3 +15,6 @@ class Stats:
     self.altruists.append(counts["altruist"])
     self.cosmopolitans.append(counts["cosmopolitan"])
     self.ethnocentrists.append(counts["ethnocentric"])
+
+  def plot(self):
+    pass

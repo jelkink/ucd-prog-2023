@@ -14,6 +14,7 @@ class Menu:
       print("(R)un a set number of iterations")
       print("(P)rint map")
       print("Print s(t)atistics")
+      print("Plot (c)ounts")
       print("(Q)uit")
       print("")
       ans = input("Menu choice: ")
@@ -30,6 +31,8 @@ class Menu:
         self.simulation.map.print()
       elif ans == "t" or ans == "T":
         self.simulation.print_statistics()
+      elif ans == "c" or ans == "C":
+        self.simulation.stats.plot()
 
   def map_size(self):
     N = input("How large should the map be (length of a square map): ")
