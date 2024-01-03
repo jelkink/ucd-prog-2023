@@ -9,7 +9,7 @@ class Menu:
       print("")
       print("MENU")
       print("")
-      print("Set (s)ize of the map")
+      print("Set (S)ize of the map")
       print("Add number of (a)gents")
       print("(R)un a set number of iterations")
       print("(P)rint map")
